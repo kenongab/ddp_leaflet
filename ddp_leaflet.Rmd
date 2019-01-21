@@ -1,0 +1,22 @@
+---
+title: "Developing Data Products"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(leaflet)
+```
+
+## R Markdown and Leaflet
+### January 20, 2019
+Here is a map of the Philippines with markers indicating the major economic hubs for each of the three major islands in the country. The markers lead to that hub's official government website.
+
+```{r phil_map}
+df <- data.frame(lat = c(14.602,10.337,7.184), lng = c(120.987,123.938,125.455))
+links <- c("<a href='http://manila.gov.ph/'>Manila, Luzon's central hub and the country's capital</a>", "<a href='https://www.cebucity.gov.ph/'>Cebu, the economic center of the Visayas group of islands</a>",
+           "Davao, Mindanao's economic hub. Unfortunately, Davao's website contains malware :(")
+phil <- df %>% leaflet() %>% addTiles() %>% setView(lat = 12, lng = 122, zoom = 5) %>% addMarkers(popup = links)
+phil
+```
+
